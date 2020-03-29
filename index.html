@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <meta charset="UTF-8">
+    <meta name="Author" content="Andreas Moe">
+    <meta name="Date" content="3/29/2020">
+    <meta name=Assignment content="Comp20-9">
+    <meta name="Description" content="JSON Assignment">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <title>
+        Setlist
+    </title>
+</head>
+<body>
+    <script language="javascript">
+        //JSON DATA
+        setlist =
+        [
+            {
+                "title": "Light Speed",
+                "artist": "The Underachievers, Ivan Jackson",
+                "genre": "Rap",
+                "year": 2018
+            },
+            {
+                "title": "Deebo",
+                "artist": "The Underachievers",
+                "genre": "Rap",
+                "year": 2019
+            },
+            {
+                "title": "Baby I'm Bleeding",
+                "artist": "JPEGMAFIA",
+                "genre": "Hip Hop",
+                "year": 2017
+            },
+            {
+                "title": "The 27 Club",
+                "artist": "JPEGMAFIA",
+                "genre": "Hip Hop",
+                "year": 2016
+            },
+            {
+                "title": "Outta Pocket",
+                "artist": "Dreamville, Bas, Cozz, Girl Talk",
+                "genre": "Hip Hop",
+                "year": 2020
+            },
+            {
+                "title": "Spin Move",
+                "artist": "Dremaville, Bas, Saba, Smino, The Hics",
+                "genre": "Hip Hop",
+                "year": 2020
+            },
+            {
+                "title": "White Ferrari",
+                "artist": "Frank Ocean",
+                "genre": "RnB",
+                "year": 2016
+            },
+            {
+                "title": "Lost in Yesterday",
+                "artist": "Tame Impala",
+                "genre": "Psychedelic Rock",
+                "year": 2019
+            },
+            {
+                "title": "KLINK",
+                "artist": "Smino, Noir",
+                "genre": "Hip Hop",
+                "year": 2017
+            },
+            {
+                "title": "Remember Me",
+                "artist": "Tame Impala",
+                "genre": "Psychedelic Rock",
+                "year": 2009
+            }
+        ]
+        //SERIALIZED DISPLAY
+        str = JSON.stringify(setlist);
+        document.write("<h1>" + "Serialized: " + "</h1><br>")
+        document.write(str + "<br>");
 
+        //USER-FRIENDLY DISPLAY
+        document.write("<h1>" + "User Friendly: " + "</h1><br>");
+        //Loop through setlist array, set song to current index and print
+        for(i = 0; i < Object.keys(setlist).length; i++) {
+            song = setlist[i];
+            document.write("<h3>" + song["title"] + "</h3><br>");
+            document.write("Artist: " + song["artist"] + "<br>");
+            document.write("Genre: " + song["genre"] + "<br>");
+            document.write("Year Released: " + song["year"] + "<br>");
+        }
+    </script>
+    <br>
+    <div>
+        <h1>Filter Songs:</h1> <br>
+        <form>
+            <select id="genre">
+                <option selected value="">Choose a genre</option>
+                <option value="Rap">Rap</option>
+                <option value="Hip Hop">Hip Hop</option>
+                <option value="RnB">RnB</option>
+                <option value="Psychedelic Rock">Psychedelic Rock</option>
+            </select>
+            <input type="button" value="Filter" onclick="filter()">
+        </form>
+    </div>
+    <div id="filtered"></div>
+    <script language="javascript">
+        function filter()
+        {
+            //div block to write to
+            filtered = document.getElementById("filtered");
+            //drop-down menu
+            genreList = document.getElementById("genre");
+            //selected genre in drop-down
+            val = genreList.options[genreList.selectedIndex].value;
+            if (val == "") {
+                alert("No genre selected");
+            }
+            else {
+                filtered.innerHTML = ""; //CLEAR PREVIOUS LIST
+                for (i = 0; i < Object.keys(setlist).length; i++) {
+                    song = setlist[i];
+                    if (song["genre"] == val) {
+                        filtered.innerHTML = filtered.innerHTML + song["title"] + "<br>";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
